@@ -286,6 +286,8 @@ func extract(filePath string, directory string) error {
 			return err
 		}
 
+		defer file.Close()
+
 		writer := bufio.NewWriter(file)
 
 		buffer := make([]byte, 4096)
@@ -305,11 +307,6 @@ func extract(filePath string, directory string) error {
 		}
 
 		err = writer.Flush()
-		if err != nil {
-			return err
-		}
-
-		err = file.Close()
 		if err != nil {
 			return err
 		}
